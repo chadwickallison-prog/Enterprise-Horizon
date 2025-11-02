@@ -1,0 +1,7 @@
+{
+  "name": "Enterprise Horizon Assessment Portal",
+  "description": "An interactive web application to assess an enterprise's readiness for next-generation data intelligence, automation, and quantum integration, providing an AI-generated Sovereign Intelligence Index (SII).",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
