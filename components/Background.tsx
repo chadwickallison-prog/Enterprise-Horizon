@@ -1,12 +1,15 @@
-
 import React from 'react';
 
 const Background: React.FC = () => {
   const particles = Array.from({ length: 50 });
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#000814] via-[#001428] to-[#002060] opacity-50"></div>
+    <div className="absolute inset-0 z-0 overflow-hidden bg-[#020814]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_22%,rgba(24,125,190,0.24),transparent_34%),radial-gradient(circle_at_16%_72%,rgba(13,88,148,0.20),transparent_32%),linear-gradient(180deg,#031126_0%,#071d35_45%,#0a2948_72%,#06101f_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-[36%] bg-[linear-gradient(180deg,transparent_0%,rgba(235,152,175,0.10)_48%,rgba(66,137,184,0.12)_58%,rgba(2,8,20,0.86)_100%)]" />
+      <div className="absolute left-[-12%] top-[18%] h-[52%] w-[48%] rounded-full bg-cyan-300/[0.05] blur-3xl" />
+      <div className="absolute right-[-8%] top-[28%] h-[34%] w-[34%] rounded-full bg-rose-300/[0.05] blur-3xl" />
+
       <div className="particles">
         {particles.map((_, i) => (
           <div key={i} className="particle" />
@@ -18,30 +21,32 @@ const Background: React.FC = () => {
           width: 100%;
           height: 100%;
           overflow: hidden;
+          pointer-events: none;
         }
-        
+
         .particle {
           position: absolute;
-          background-color: rgba(64, 128, 255, 0.5);
+          background-color: rgba(172, 225, 255, 0.48);
+          box-shadow: 0 0 10px rgba(115, 198, 255, 0.34);
           border-radius: 50%;
           animation: move linear infinite;
           opacity: 0;
         }
-        
+
         @keyframes move {
           0% {
             transform: translate(var(--x-start), var(--y-start));
             opacity: 0;
           }
           50% {
-            opacity: 1;
+            opacity: .75;
           }
           100% {
             transform: translate(var(--x-end), var(--y-end));
             opacity: 0;
           }
         }
-        
+
         ${particles.map((_, i) => `
           .particle:nth-child(${i + 1}) {
             --size: ${Math.random() * 2 + 1}px;
