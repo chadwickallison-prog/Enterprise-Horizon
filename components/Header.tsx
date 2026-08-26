@@ -13,7 +13,7 @@ interface HeaderProps {
   onRequestDemo: () => void;
 }
 
-type NavItem = { name: string; page?: string; section?: boolean };
+type NavItem = { name: string; page?: string; href?: string; section?: boolean };
 
 const NavDropdown: React.FC<{
   title: string;
@@ -69,6 +69,17 @@ const NavDropdown: React.FC<{
                 <div key={`${link.name}-${index}`} className="px-4 pt-3 pb-1 text-[11px] font-black uppercase tracking-[0.22em] text-cyan-300 border-t border-white/5 first:border-t-0">
                   {link.name}
                 </div>
+              ) : link.href ? (
+                <a
+                  key={`${link.href}-${index}`}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setIsOpen(false)}
+                  className="block w-full text-left px-5 py-2.5 text-sm text-slate-200 hover:bg-cyan-300/10 hover:text-cyan-100 transition-colors"
+                >
+                  {link.name}
+                </a>
               ) : (
                 <button
                   key={`${link.page}-${index}`}
@@ -144,6 +155,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
 
   const blockchainLinks: NavItem[] = [
     { name: 'Blockchain Framework', page: 'blockchain' },
+    { name: 'Galaxity Token (GALAI)', href: 'https://galaxity-ai-token.chadwickallison.chatgpt.site/' },
   ];
 
   const integrationsLinks: NavItem[] = [
