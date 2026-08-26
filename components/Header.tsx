@@ -229,6 +229,20 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
                 Log In
               </button>
             )}
+
+            <button
+              type="button"
+              onClick={() => onNavigate(isAuthenticated ? 'dashboard' : 'login')}
+              className="hidden lg:flex items-center justify-center rounded-lg overflow-hidden border border-cyan-100/15 bg-[#051426] shadow-[0_0_22px_rgba(80,170,220,0.12)] hover:border-cyan-200/30 transition-colors"
+              aria-label="Enterprise Horizon home"
+              title="Enterprise Horizon"
+            >
+              <img
+                src="/assets/enterprise-horizon-logo.jpg"
+                alt="Enterprise Horizon"
+                className="h-14 w-auto object-contain"
+              />
+            </button>
           </div>
         </div>
       </div>
