@@ -48,6 +48,7 @@ import ContextualRelevanceFrameworkPage from './components/ContextualRelevanceFr
 import AdaptiveLearningSystemPage from './components/AdaptiveLearningSystemPage';
 import InsightDeliveryOrchestratorPage from './components/InsightDeliveryOrchestratorPage';
 import BlockchainPage from './components/BlockchainPage';
+import GalaxityTokenPage from './components/GalaxityTokenPage';
 import SupportPage from './components/SupportPage';
 import QuantumCyberSecurityPage from './components/QuantumCyberSecurityPage';
 import QuantumCommunicationsPage from './components/QuantumCommunicationsPage';
@@ -348,6 +349,7 @@ const App: React.FC = () => {
         case 'adaptive-learning-system': return <AdaptiveLearningSystemPage />;
         case 'insight-delivery-orchestrator': return <InsightDeliveryOrchestratorPage />;
         case 'blockchain': return <BlockchainPage onNavigate={handleNavigate} />;
+        case 'galaxity-token': return <GalaxityTokenPage />;
         case 'support': return <SupportPage onNavigate={handleNavigate} />;
         case 'faq': return <FaqPage />;
         case 'quantum-cyber-security': return <QuantumCyberSecurityPage onNavigate={handleNavigate} />;
