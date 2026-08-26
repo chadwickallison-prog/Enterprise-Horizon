@@ -13,9 +13,11 @@ interface HeaderProps {
   onRequestDemo: () => void;
 }
 
+type NavItem = { name: string; page?: string; section?: boolean };
+
 const NavDropdown: React.FC<{
   title: string;
-  links: { name: string; page: string }[];
+  links: NavItem[];
   onNavigate: (page: string) => void;
 }> = ({ title, links, onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +33,8 @@ const NavDropdown: React.FC<{
     closeTimer.current = window.setTimeout(() => setIsOpen(false), 220);
   };
 
-  const selectLink = (page: string) => {
+  const selectLink = (page?: string) => {
+    if (!page) return;
     setIsOpen(false);
     onNavigate(page);
   };
@@ -59,15 +62,19 @@ const NavDropdown: React.FC<{
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 top-full pt-2 w-72 z-50" onMouseEnter={openMenu} onMouseLeave={scheduleClose}>
+        <div className="absolute left-0 top-full pt-2 w-80 z-50" onMouseEnter={openMenu} onMouseLeave={scheduleClose}>
           <div className="rounded-xl overflow-hidden shadow-2xl border border-cyan-300/20 bg-[#061526]/95 backdrop-blur-xl ring-1 ring-white/5">
-            <div className="py-2 max-h-96 overflow-y-auto overscroll-contain">
-              {links.map(link => (
+            <div className="py-2 max-h-[30rem] overflow-y-auto overscroll-contain">
+              {links.map((link, index) => link.section ? (
+                <div key={`${link.name}-${index}`} className="px-4 pt-3 pb-1 text-[11px] font-black uppercase tracking-[0.22em] text-cyan-300 border-t border-white/5 first:border-t-0">
+                  {link.name}
+                </div>
+              ) : (
                 <button
-                  key={link.page}
+                  key={`${link.page}-${index}`}
                   type="button"
                   onClick={() => selectLink(link.page)}
-                  className="block w-full text-left px-4 py-2.5 text-sm text-slate-200 hover:bg-cyan-300/10 hover:text-cyan-100 transition-colors"
+                  className="block w-full text-left px-5 py-2.5 text-sm text-slate-200 hover:bg-cyan-300/10 hover:text-cyan-100 transition-colors"
                 >
                   {link.name}
                 </button>
@@ -106,7 +113,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
     }
   };
 
-  const enterpriseSolutionsLinks = [
+  const enterpriseSolutionsLinks: NavItem[] = [
     { name: 'Solutions Hub', page: 'solutions'},
     { name: 'Starnet Halo Vortex', page: 'starnet-halo-vortex' },
     { name: 'NovaCore Hyperion', page: 'novacore-hyperion' },
@@ -120,32 +127,37 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
     { name: 'Insight Delivery Orchestrator', page: 'insight-delivery-orchestrator' },
   ];
 
-  const quantumSecurityLinks = [
+  const quantumSecurityLinks: NavItem[] = [
     { name: 'Quantum Security Hub', page: 'quantum-cyber-security' },
+    { name: 'TERRESTRIAL', section: true },
     { name: 'Quantum Communications', page: 'quantum-communications' },
-    { name: 'Post-Quantum Cryptography (PQC)', page: 'pqc' },
     { name: 'Quantum Key Distribution (QKD)', page: 'qkd' },
+    { name: 'Post-Quantum Cryptography (PQC)', page: 'pqc' },
+    { name: 'Hybrid QKD + PQC Architecture', page: 'quantum-resilient-architecture' },
     { name: 'Quantum Random Number Generation', page: 'qrng' },
-    { name: 'Quantum-Resilient Architecture', page: 'quantum-resilient-architecture' },
     { name: 'AI & Quantum Threat Detection', page: 'ai-q-threat-detection' },
+    { name: 'CELESTIAL', section: true },
+    { name: 'Star Jumper', page: 'starnet-halo-vortex' },
+    { name: 'Celestial Quantum Solutions', page: 'quantumlink-graph-nexus' },
+    { name: 'Space Quantum Communications', page: 'quantum-communications' },
   ];
 
-  const blockchainLinks = [
+  const blockchainLinks: NavItem[] = [
     { name: 'Blockchain Framework', page: 'blockchain' },
   ];
 
-  const integrationsLinks = [
+  const integrationsLinks: NavItem[] = [
     { name: 'Integration Library', page: 'integrations' },
     { name: 'My Integration Plans', page: 'custom-integration-plans' },
   ];
 
-  const pilotsLinks = [
+  const pilotsLinks: NavItem[] = [
     { name: 'Custom Initiative Program', page: 'custom-initiative-program' },
     { name: 'Pilot Library', page: 'pilots' },
     { name: 'My Initiative Plans', page: 'custom-initiative-plans' },
   ];
 
-  const reportsLinks = [
+  const reportsLinks: NavItem[] = [
     { name: 'Reports Hub', page: 'reports' },
     { name: 'Quarterly SII Trends', page: 'quarterly-report' },
     { name: 'Maturity Breakdown', page: 'maturity-report' },
