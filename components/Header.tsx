@@ -155,7 +155,8 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
 
   const blockchainLinks: NavItem[] = [
     { name: 'Blockchain Framework', page: 'blockchain' },
-    { name: 'Galaxity Token (GALAI)', href: 'https://galaxity-ai-token.chadwickallison.chatgpt.site/' },
+    { name: 'Galaxity Token', page: 'galaxity-token' },
+    { name: 'Open Galaxity Token Site ↗', href: 'https://galaxity-ai-token.chadwickallison.chatgpt.site/' },
   ];
 
   const integrationsLinks: NavItem[] = [
