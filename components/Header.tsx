@@ -106,7 +106,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
     }
   };
 
-  const solutionsLinks = [
+  const enterpriseSolutionsLinks = [
     { name: 'Solutions Hub', page: 'solutions'},
     { name: 'Starnet Halo Vortex', page: 'starnet-halo-vortex' },
     { name: 'NovaCore Hyperion', page: 'novacore-hyperion' },
@@ -120,17 +120,18 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
     { name: 'Insight Delivery Orchestrator', page: 'insight-delivery-orchestrator' },
   ];
 
-  const reportsLinks = [
-    { name: 'Reports Hub', page: 'reports' },
-    { name: 'Quarterly SII Trends', page: 'quarterly-report' },
-    { name: 'Maturity Breakdown', page: 'maturity-report' },
-    { name: 'Industry Benchmarks', page: 'benchmark-report' },
-    { name: 'Pilot Success Metrics', page: 'pilot-report' },
-    { name: 'Risk & Compliance', page: 'risk-report' },
-    { name: 'Cost Optimization', page: 'cost-report' },
-    { name: 'Automation ROI', page: 'automation-roi-report' },
-    { name: 'Security Posture', page: 'security-report' },
-    { name: 'Employee Sentiment', page: 'sentiment-report' },
+  const quantumSecurityLinks = [
+    { name: 'Quantum Security Hub', page: 'quantum-cyber-security' },
+    { name: 'Quantum Communications', page: 'quantum-communications' },
+    { name: 'Post-Quantum Cryptography (PQC)', page: 'pqc' },
+    { name: 'Quantum Key Distribution (QKD)', page: 'qkd' },
+    { name: 'Quantum Random Number Generation', page: 'qrng' },
+    { name: 'Quantum-Resilient Architecture', page: 'quantum-resilient-architecture' },
+    { name: 'AI & Quantum Threat Detection', page: 'ai-q-threat-detection' },
+  ];
+
+  const blockchainLinks = [
+    { name: 'Blockchain Framework', page: 'blockchain' },
   ];
 
   const integrationsLinks = [
@@ -144,20 +145,17 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
     { name: 'My Initiative Plans', page: 'custom-initiative-plans' },
   ];
 
-  const quantumSecurityLinks = [
-    { name: 'Quantum Security Hub', page: 'quantum-cyber-security' },
-    { name: 'Quantum Communications', page: 'quantum-communications' },
-    { name: 'Post-Quantum Cryptography (PQC)', page: 'pqc' },
-    { name: 'Quantum Key Distribution (QKD)', page: 'qkd' },
-    { name: 'Quantum Random Number Generation', page: 'qrng' },
-    { name: 'Quantum-Resilient Architecture', page: 'quantum-resilient-architecture' },
-    { name: 'AI & Quantum Threat Detection', page: 'ai-q-threat-detection' },
-  ];
-
-  const optionsLinks = [
-    { name: 'Blockchain Framework', page: 'blockchain' },
-    { name: 'Support', page: 'support' },
-    { name: 'FAQ', page: 'faq' },
+  const reportsLinks = [
+    { name: 'Reports Hub', page: 'reports' },
+    { name: 'Quarterly SII Trends', page: 'quarterly-report' },
+    { name: 'Maturity Breakdown', page: 'maturity-report' },
+    { name: 'Industry Benchmarks', page: 'benchmark-report' },
+    { name: 'Pilot Success Metrics', page: 'pilot-report' },
+    { name: 'Risk & Compliance', page: 'risk-report' },
+    { name: 'Cost Optimization', page: 'cost-report' },
+    { name: 'Automation ROI', page: 'automation-roi-report' },
+    { name: 'Security Posture', page: 'security-report' },
+    { name: 'Employee Sentiment', page: 'sentiment-report' },
   ];
 
   return (
@@ -187,12 +185,12 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
 
           <nav className="hidden xl:flex items-center space-x-1">
             <button onClick={() => onNavigate('dashboard')} className="text-slate-200 hover:text-white hover:bg-white/5 transition-all px-3 py-2 rounded-md text-sm font-medium">Dashboard</button>
-            <NavDropdown title="Solutions" links={solutionsLinks} onNavigate={onNavigate} />
+            <NavDropdown title="Enterprise Solutions" links={enterpriseSolutionsLinks} onNavigate={onNavigate} />
             <NavDropdown title="Quantum Security" links={quantumSecurityLinks} onNavigate={onNavigate} />
-            <NavDropdown title="Reports" links={reportsLinks} onNavigate={onNavigate} />
+            <NavDropdown title="Blockchain" links={blockchainLinks} onNavigate={onNavigate} />
             <NavDropdown title="Integrations" links={integrationsLinks} onNavigate={onNavigate} />
             <NavDropdown title="Pilots" links={pilotsLinks} onNavigate={onNavigate} />
-            <NavDropdown title="Options" links={optionsLinks} onNavigate={onNavigate} />
+            <NavDropdown title="Reports" links={reportsLinks} onNavigate={onNavigate} />
           </nav>
 
           <div className="flex items-center space-x-3 shrink-0">
