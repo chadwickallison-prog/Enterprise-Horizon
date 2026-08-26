@@ -18,6 +18,7 @@ const GalaxityTokenPage: React.FC = () => {
         <div className="mt-7 rounded-2xl border border-cyan-300/20 bg-gradient-to-br from-[#061526]/95 via-[#08223b]/90 to-[#0b3653]/80 p-6 sm:p-8 text-left shadow-[0_0_36px_rgba(73,190,235,0.10)]">
           <div className="text-sm sm:text-base font-black tracking-[0.16em] text-cyan-200 uppercase">Not a meme. Not a shortcut.</div>
           <h2 className="text-2xl sm:text-3xl font-black text-white mt-2">Designed as an <span className="italic text-cyan-200">operating instrument</span>, not a speculative costume.</h2>
+          <h3 className="text-xl sm:text-2xl font-black text-cyan-100 mt-4">Built on recognizable rails. Governed by explicit controls.</h3>
           <p className="text-slate-200 leading-7 mt-5">
             The architecture separates identity, utility, incentives, treasury, governance and controls. Each function has a defined role, an observable boundary and a deliberate route toward broader participation.
           </p>
