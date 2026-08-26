@@ -144,10 +144,18 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
     { name: 'My Initiative Plans', page: 'custom-initiative-plans' },
   ];
 
+  const quantumSecurityLinks = [
+    { name: 'Quantum Security Hub', page: 'quantum-cyber-security' },
+    { name: 'Quantum Communications', page: 'quantum-communications' },
+    { name: 'Post-Quantum Cryptography (PQC)', page: 'pqc' },
+    { name: 'Quantum Key Distribution (QKD)', page: 'qkd' },
+    { name: 'Quantum Random Number Generation', page: 'qrng' },
+    { name: 'Quantum-Resilient Architecture', page: 'quantum-resilient-architecture' },
+    { name: 'AI & Quantum Threat Detection', page: 'ai-q-threat-detection' },
+  ];
+
   const optionsLinks = [
-    { name: 'Pricing', page: 'pricing' },
     { name: 'Blockchain Framework', page: 'blockchain' },
-    { name: 'Quantum Security', page: 'quantum-cyber-security' },
     { name: 'Support', page: 'support' },
     { name: 'FAQ', page: 'faq' },
   ];
@@ -180,6 +188,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
           <nav className="hidden xl:flex items-center space-x-1">
             <button onClick={() => onNavigate('dashboard')} className="text-slate-200 hover:text-white hover:bg-white/5 transition-all px-3 py-2 rounded-md text-sm font-medium">Dashboard</button>
             <NavDropdown title="Solutions" links={solutionsLinks} onNavigate={onNavigate} />
+            <NavDropdown title="Quantum Security" links={quantumSecurityLinks} onNavigate={onNavigate} />
             <NavDropdown title="Reports" links={reportsLinks} onNavigate={onNavigate} />
             <NavDropdown title="Integrations" links={integrationsLinks} onNavigate={onNavigate} />
             <NavDropdown title="Pilots" links={pilotsLinks} onNavigate={onNavigate} />
