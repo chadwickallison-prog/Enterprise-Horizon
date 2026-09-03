@@ -236,7 +236,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
               <svg className="w-5 h-5 text-cyan-200/50 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
             </form>
 
-            <button onClick={onRequestDemo} className="hidden md:block bg-gradient-to-r from-[#0b5f9c] via-[#157db8] to-[#60c7e8] hover:brightness-110 text-white transition-all px-4 py-2 rounded-md text-sm font-bold shadow-[0_8px_24px_rgba(21,125,184,0.25)] border border-cyan-100/20">
+            <button onClick={onRequestDemo} className="hidden 2xl:block bg-gradient-to-r from-[#0b5f9c] via-[#157db8] to-[#60c7e8] hover:brightness-110 text-white transition-all px-4 py-2 rounded-md text-sm font-bold shadow-[0_8px_24px_rgba(21,125,184,0.25)] border border-cyan-100/20">
               Request a Demo
             </button>
 
