@@ -29,7 +29,7 @@ const ErpIntegrationPage: React.FC = () => {
                 <p className="text-sm text-gray-400 mt-2">Financial & Supply Chain Data</p>
             </ArchBox>
             <RightArrow />
-            <ArchBox title="ETL / ELT Pipeline" color="border-purple-500">
+            <ArchBox title="ETL / ELT Pipeline" color="border-cyan-400">
                  <p className="text-sm text-gray-400 mt-2">Batch or Stream Processing</p>
             </ArchBox>
             <RightArrow />

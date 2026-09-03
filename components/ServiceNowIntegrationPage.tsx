@@ -29,7 +29,7 @@ const ServiceNowIntegrationPage: React.FC = () => {
                 <p className="text-sm text-gray-400 mt-2">Incident & CMDB Data</p>
             </ArchBox>
             <RightArrow />
-            <ArchBox title="MID Server / API" color="border-purple-500">
+            <ArchBox title="MID Server / API" color="border-cyan-400">
                  <p className="text-sm text-gray-400 mt-2">Real-time Event Streaming</p>
             </ArchBox>
             <RightArrow />

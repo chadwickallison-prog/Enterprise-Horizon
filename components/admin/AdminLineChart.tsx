@@ -52,7 +52,7 @@ const AdminLineChart: React.FC<AdminLineChartProps> = ({ data, data2 }) => {
                 {points2 && (
                     <polyline
                         fill="none"
-                        stroke="#8B5CF6"
+                        stroke="#60C7E8"
                         strokeWidth="2"
                         points={points2}
                     />
@@ -61,7 +61,7 @@ const AdminLineChart: React.FC<AdminLineChartProps> = ({ data, data2 }) => {
                     <g transform={`translate(0, ${chartHeight + 35})`}>
                         <rect x="0" y="0" width="10" height="10" fill="#3B82F6" />
                         <text x="15" y="9" fontSize="12" fill="#6B7280">New Users</text>
-                        <rect x="100" y="0" width="10" height="10" fill="#8B5CF6" />
+                        <rect x="100" y="0" width="10" height="10" fill="#60C7E8" />
                         <text x="115" y="9" fontSize="12" fill="#6B7280">Assessments</text>
                     </g>
                 )}

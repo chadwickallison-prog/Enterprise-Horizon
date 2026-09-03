@@ -73,7 +73,7 @@ const ResultsDomainScoreChart: React.FC<ResultsDomainScoreChartProps> = ({ score
     <svg width="100%" height="100%" viewBox={`0 0 ${size} ${size}`}>
       {levels}
       {axes}
-      <polygon points={dataPoints} stroke="#6366F1" strokeWidth="2" fill="rgba(99, 102, 241, 0.25)" />
+      <polygon points={dataPoints} stroke="#60C7E8" strokeWidth="2" fill="rgba(96, 199, 232, 0.22)" />
     </svg>
   );
 };

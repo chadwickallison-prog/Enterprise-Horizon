@@ -42,7 +42,7 @@ const QuantumLinkGraphNexusPage: React.FC = () => {
                     <line x1="25%" y1="75%" x2="50%" y2="50%" stroke="#4A5568" strokeWidth="2" />
                     <line x1="75%" y1="75%" x2="50%" y2="50%" stroke="#4A5568" strokeWidth="2" />
                  </svg>
-                <ArchBox title="QuantumLink Graph Nexus" color="border-purple-500" className="w-48 h-24 z-10" />
+                <ArchBox title="QuantumLink Graph Nexus" color="border-cyan-400" className="w-48 h-24 z-10" />
                 <div className="absolute top-4 left-1/4 -translate-x-1/2"><ArchBox title="Application" color="border-blue-400" className="w-32 h-20" /></div>
                 <div className="absolute top-4 right-1/4 translate-x-1/2"><ArchBox title="Database" color="border-blue-400" className="w-32 h-20" /></div>
                 <div className="absolute bottom-4 left-1/4 -translate-x-1/2"><ArchBox title="User" color="border-blue-400" className="w-32 h-20" /></div>

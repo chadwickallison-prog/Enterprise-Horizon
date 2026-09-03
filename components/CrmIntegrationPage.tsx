@@ -29,7 +29,7 @@ const CrmIntegrationPage: React.FC = () => {
                 <p className="text-sm text-gray-400 mt-2">Customer & Deal Data</p>
             </ArchBox>
             <RightArrow />
-            <ArchBox title="Integration Connector" color="border-purple-500">
+            <ArchBox title="Integration Connector" color="border-cyan-400">
                  <p className="text-sm text-gray-400 mt-2">API Polling / Webhooks</p>
             </ArchBox>
             <RightArrow />

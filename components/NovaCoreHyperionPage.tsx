@@ -45,7 +45,7 @@ const NovaCoreHyperionPage: React.FC = () => {
                     <ArchBox title="Edge Devices" color="border-blue-400" subtitle="Sensors" />
                 </div>
                 <div className="text-4xl text-gray-500 my-2">↓</div>
-                <ArchBox title="NovaCore Hyperion™" color="border-purple-500" className="w-2/3" />
+                <ArchBox title="NovaCore Hyperion™" color="border-cyan-400" className="w-2/3" />
                 <div className="text-4xl text-gray-500 my-2">↓</div>
                 <ArchBox title="Hardware Health & Failure Prediction" color="border-green-500" className="w-full" />
             </div>

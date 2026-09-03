@@ -2,7 +2,7 @@ import React from 'react';
 
 const Capability: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <li className="flex items-start">
-        <svg className="w-5 h-5 mr-2 text-purple-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <svg className="w-5 h-5 mr-2 text-cyan-300 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         <span>{children}</span>
     </li>
 );
@@ -19,7 +19,7 @@ const TemporalDynamicsAnalyzerPage: React.FC = () => {
     <div className="w-full bg-black/30 backdrop-blur-sm border border-gray-700/50 rounded-2xl shadow-2xl p-6 sm:p-8 animate-fade-in">
         <div className="text-center mb-12">
             <h1 className="text-3xl font-black text-white mb-2">Temporal Dynamics Analyzer™</h1>
-            <p className="text-lg text-purple-400 font-semibold">Time-Based Intelligence Framework</p>
+            <p className="text-lg text-cyan-300 font-semibold">Time-Based Intelligence Framework</p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

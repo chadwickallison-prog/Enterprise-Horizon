@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import type { User } from '../types';
+import { logoBase64 } from '../assets/logo';
 
 interface HeaderProps {
   user: User | null;
@@ -184,19 +185,24 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
   ];
 
   return (
-    <header className="relative z-40 w-full border-b border-white/10 bg-[#04111f]/75 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.22)]">
+    <header className="relative z-40 w-full border-b border-sky-200/15 bg-[#02070d]/90 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.34)]">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4 gap-4">
           <div className="flex items-center shrink-0">
-            <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => onNavigate(isAuthenticated ? 'dashboard' : 'login')}>
-              <div className="h-9 w-9 rounded-full border border-cyan-200/50 bg-cyan-200/10 shadow-[0_0_24px_rgba(125,211,252,0.24)] flex items-center justify-center">
-                <div className="h-3 w-3 rounded-full border border-white/90 shadow-[0_0_12px_rgba(255,255,255,0.9)]" />
-              </div>
-              <div>
+            <button
+              type="button"
+              className="flex items-center space-x-3 text-left group"
+              onClick={() => onNavigate(isAuthenticated ? 'dashboard' : 'login')}
+              aria-label="Enterprise Horizon home"
+            >
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-sky-200/30 bg-[#061526] shadow-[0_0_26px_rgba(96,199,232,0.2)] transition-colors group-hover:border-sky-200/55">
+                <img src={logoBase64} alt="" className="h-9 w-9 object-contain" />
+              </span>
+              <span className="hidden sm:block">
                 <span className="block text-lg font-bold tracking-wide text-white group-hover:text-cyan-100 transition-colors">Enterprise Horizon</span>
-                <span className="block text-[10px] uppercase tracking-[0.24em] text-cyan-200/70">Galaxity AI</span>
-              </div>
-            </div>
+                <span className="block text-[10px] uppercase tracking-[0.24em] text-sky-200/70">Galaxity AI</span>
+              </span>
+            </button>
 
             <div className="flex items-center ml-3">
               <button onClick={onBack} disabled={!canGoBack} className="p-2 rounded-full text-slate-400 hover:bg-white/5 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors" aria-label="Back">
@@ -230,7 +236,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
               <svg className="w-5 h-5 text-cyan-200/50 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
             </form>
 
-            <button onClick={onRequestDemo} className="bg-gradient-to-r from-[#0b5f9c] via-[#157db8] to-[#60c7e8] hover:brightness-110 text-white transition-all px-4 py-2 rounded-md text-sm font-bold shadow-[0_8px_24px_rgba(21,125,184,0.25)] border border-cyan-100/20">
+            <button onClick={onRequestDemo} className="hidden md:block bg-gradient-to-r from-[#0b5f9c] via-[#157db8] to-[#60c7e8] hover:brightness-110 text-white transition-all px-4 py-2 rounded-md text-sm font-bold shadow-[0_8px_24px_rgba(21,125,184,0.25)] border border-cyan-100/20">
               Request a Demo
             </button>
 
@@ -261,20 +267,6 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
                 Log In
               </button>
             )}
-
-            <button
-              type="button"
-              onClick={() => onNavigate(isAuthenticated ? 'dashboard' : 'login')}
-              className="hidden lg:flex items-center justify-center rounded-lg overflow-hidden border border-cyan-100/15 bg-[#051426] shadow-[0_0_22px_rgba(80,170,220,0.12)] hover:border-cyan-200/30 transition-colors"
-              aria-label="Enterprise Horizon home"
-              title="Enterprise Horizon"
-            >
-              <img
-                src="/assets/enterprise-horizon-logo.jpg"
-                alt="Enterprise Horizon"
-                className="h-14 w-auto object-contain"
-              />
-            </button>
           </div>
         </div>
       </div>

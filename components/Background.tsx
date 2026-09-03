@@ -4,11 +4,11 @@ const Background: React.FC = () => {
   const particles = Array.from({ length: 50 });
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden bg-[#020814]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_22%,rgba(24,125,190,0.24),transparent_34%),radial-gradient(circle_at_16%_72%,rgba(13,88,148,0.20),transparent_32%),linear-gradient(180deg,#031126_0%,#071d35_45%,#0a2948_72%,#06101f_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-[36%] bg-[linear-gradient(180deg,transparent_0%,rgba(235,152,175,0.10)_48%,rgba(66,137,184,0.12)_58%,rgba(2,8,20,0.86)_100%)]" />
+    <div className="absolute inset-0 z-0 overflow-hidden bg-[#01060b]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_22%,rgba(24,125,190,0.25),transparent_34%),radial-gradient(circle_at_16%_72%,rgba(68,163,211,0.16),transparent_32%),linear-gradient(180deg,#01060b_0%,#04111f_45%,#08243c_72%,#030b14_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-[36%] bg-[linear-gradient(180deg,transparent_0%,rgba(96,199,232,0.06)_48%,rgba(162,207,229,0.10)_58%,rgba(1,6,11,0.9)_100%)]" />
       <div className="absolute left-[-12%] top-[18%] h-[52%] w-[48%] rounded-full bg-cyan-300/[0.05] blur-3xl" />
-      <div className="absolute right-[-8%] top-[28%] h-[34%] w-[34%] rounded-full bg-rose-300/[0.05] blur-3xl" />
+      <div className="absolute right-[-8%] top-[28%] h-[34%] w-[34%] rounded-full bg-sky-200/[0.05] blur-3xl" />
 
       <div className="particles">
         {particles.map((_, i) => (

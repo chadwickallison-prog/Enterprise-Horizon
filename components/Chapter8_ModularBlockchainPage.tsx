@@ -22,7 +22,7 @@ const Chapter8_ModularBlockchainPage: React.FC = () => {
 
             <div className="space-y-6">
                 <LayerBox title="Execution Layer" color="border-blue-500" description="Handles smart contract execution and state changes. Developers can choose or create a virtual machine environment (e.g., EVM, WASM) that best suits their application." />
-                <LayerBox title="Data Layer" color="border-purple-500" description="Manages data availability and storage. This layer ensures that all necessary transaction data is accessible without forcing every node to store the entire state." />
+                <LayerBox title="Data Layer" color="border-cyan-400" description="Manages data availability and storage. This layer ensures that all necessary transaction data is accessible without forcing every node to store the entire state." />
                 <LayerBox title="Consensus Layer" color="border-green-500" description="Responsible for ordering transactions and securing the network. ASBs can plug into Galaxity's AI-augmented consensus or implement their own." />
             </div>
         </div>

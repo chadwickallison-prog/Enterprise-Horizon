@@ -32,7 +32,7 @@ const Chapter3_DecentralizedBridgesPage: React.FC = () => {
                 <ArchBox title="Ethereum" color="border-blue-500"><p className="text-sm text-gray-400 mt-2">Asset Locked in Contract</p></ArchBox>
                 <Arrow direction="right" />
                 <div className="flex flex-col items-center">
-                    <ArchBox title="Lock-Mint-Burn-Unlock Protocol" color="border-purple-500" />
+                    <ArchBox title="Lock-Mint-Burn-Unlock Protocol" color="border-cyan-400" />
                     <Arrow direction="down" />
                     <ArchBox title="Decentralized Custody" color="border-yellow-500"><p className="text-sm text-gray-400 mt-2">Managed by AI-DAO</p></ArchBox>
                 </div>

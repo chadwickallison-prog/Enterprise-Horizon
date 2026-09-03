@@ -45,7 +45,7 @@ const EventHorizonSynopticPage: React.FC = () => {
                 <div className="text-5xl text-gray-500">→</div>
 
                 <div className="flex flex-col items-center space-y-4 w-2/3">
-                     <ArchBox title="Event Horizon Synoptic™" color="border-purple-500" className="w-full" />
+                     <ArchBox title="Event Horizon Synoptic™" color="border-cyan-400" className="w-full" />
                      <ArchBox title="Dashboards & Natural Language Query" color="border-green-500" className="w-full p-6 h-32 flex items-center justify-center" />
                 </div>
             </div>

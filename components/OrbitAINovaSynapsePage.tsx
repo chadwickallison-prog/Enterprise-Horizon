@@ -45,7 +45,7 @@ const OrbitAINovaSynapsePage: React.FC = () => {
                     <ArchBox title="Traces" color="border-blue-400" subtitle="Distributed Requests"/>
                 </div>
                 <div className="text-4xl text-gray-500 my-2">↓</div>
-                <ArchBox title="OrbitAI NovaSynapse™" color="border-purple-500" className="w-2/3" subtitle="Learns Normal Patterns"/>
+                <ArchBox title="OrbitAI NovaSynapse™" color="border-cyan-400" className="w-2/3" subtitle="Learns Normal Patterns"/>
                 <div className="text-4xl text-gray-500 my-2">↓</div>
                 <div className="grid grid-cols-3 gap-2 w-full">
                     <ArchBox title="Baselining" color="border-green-500" />

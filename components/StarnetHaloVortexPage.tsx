@@ -52,7 +52,7 @@ const StarnetHaloVortexPage: React.FC = () => {
                     <ArchBox title="Cloud VPCs" color="border-blue-500" className="flex-1" />
                 </div>
                 <DownArrow />
-                <ArchBox title="Starnet Halo Vortex™" color="border-purple-500" className="w-full" />
+                <ArchBox title="Starnet Halo Vortex™" color="border-cyan-400" className="w-full" />
                 <DownArrow />
                 <ArchBox title="Unified Network Map & Analysis" color="border-green-500" className="w-full" />
             </div>

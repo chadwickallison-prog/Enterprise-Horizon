@@ -2,7 +2,7 @@ import React from 'react';
 
 const Capability: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <li className="flex items-start">
-        <svg className="w-5 h-5 mr-2 text-purple-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <svg className="w-5 h-5 mr-2 text-cyan-300 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         <span>{children}</span>
     </li>
 );
@@ -19,7 +19,7 @@ const InsightDeliveryOrchestratorPage: React.FC = () => {
     <div className="w-full bg-black/30 backdrop-blur-sm border border-gray-700/50 rounded-2xl shadow-2xl p-6 sm:p-8 animate-fade-in">
          <div className="text-center mb-12">
             <h1 className="text-3xl font-black text-white mb-2">Insight Delivery Orchestrator™</h1>
-            <p className="text-lg text-purple-400 font-semibold">Personalized Intelligence Distribution</p>
+            <p className="text-lg text-cyan-300 font-semibold">Personalized Intelligence Distribution</p>
         </div>
          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
@@ -39,7 +39,7 @@ const InsightDeliveryOrchestratorPage: React.FC = () => {
             <div className="flex flex-col items-center justify-center bg-gray-900/30 rounded-lg p-6">
                 <ArchBox title="Actionable Insight from AIG" color="border-blue-400" className="h-20 w-full" />
                 <div className="text-5xl text-gray-500 my-4">↓</div>
-                <ArchBox title="Insight Delivery Orchestrator™" color="border-purple-500" className="h-20 w-full" />
+                <ArchBox title="Insight Delivery Orchestrator™" color="border-cyan-400" className="h-20 w-full" />
                 <div className="text-5xl text-gray-500 my-4">↓</div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
                     <ArchBox title="Email" color="border-green-500">

@@ -149,7 +149,7 @@ const IntegrationsPage: React.FC<{ onBuildIntegrationPlan: (integrations: string
                 <div className="flex space-x-4">
                     <button 
                         onClick={handleBuild} 
-                        className="px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-lg shadow-lg hover:opacity-90 transition-opacity"
+                        className="px-6 py-2 bg-gradient-to-r from-blue-500 to-sky-600 text-white font-bold rounded-lg shadow-lg hover:opacity-90 transition-opacity"
                     >
                         Build Integration Plan ({selectedIntegrations.length})
                     </button>

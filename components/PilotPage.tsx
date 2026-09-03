@@ -12,7 +12,7 @@ const PilotDetailModal: React.FC<PilotDetailModalProps> = ({ pilot, onClose }) =
     Active: 'text-green-400 bg-green-900/50',
     Planned: 'text-yellow-400 bg-yellow-900/50',
     Completed: 'text-blue-400 bg-blue-900/50',
-    Conceptual: 'text-purple-400 bg-purple-900/50',
+    Conceptual: 'text-cyan-300 bg-cyan-950/70',
   };
 
   return (
@@ -49,7 +49,7 @@ const PilotCard: React.FC<PilotCardProps> = ({ pilot, isSelected, onSelect, onVi
     Active: 'text-green-400 bg-green-900/50',
     Planned: 'text-yellow-400 bg-yellow-900/50',
     Completed: 'text-blue-400 bg-blue-900/50',
-    Conceptual: 'text-purple-400 bg-purple-900/50',
+    Conceptual: 'text-cyan-300 bg-cyan-950/70',
   };
 
   return (
@@ -150,7 +150,7 @@ const PilotPage: React.FC<{ onBuildInitiative: (pilots: string[]) => void }> = (
         <div className="mt-12 p-6 bg-gray-900/50 border border-gray-700 rounded-lg flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sticky bottom-4 z-20">
           <p className="text-lg text-white font-semibold">{selectedPilots.length} pilot(s) selected.</p>
           <div className="flex space-x-4">
-            <button onClick={handleBuildPilot} className="px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-lg shadow-lg hover:opacity-90 transition-opacity">Combine Selected Pilots ({selectedPilots.length})</button>
+            <button onClick={handleBuildPilot} className="px-6 py-2 bg-gradient-to-r from-blue-500 to-sky-600 text-white font-bold rounded-lg shadow-lg hover:opacity-90 transition-opacity">Combine Selected Pilots ({selectedPilots.length})</button>
             <button onClick={() => setSelectedPilots([])} className="px-6 py-2 bg-gray-600 text-gray-200 font-semibold rounded-lg hover:bg-gray-500 transition-colors">Clear Selection</button>
           </div>
         </div>

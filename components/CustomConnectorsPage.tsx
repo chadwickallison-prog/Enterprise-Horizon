@@ -29,7 +29,7 @@ const CustomConnectorsPage: React.FC = () => {
                 <p className="text-sm text-gray-400 mt-2">Internal APIs or DBs</p>
             </ArchBox>
             <RightArrow />
-            <ArchBox title="Connector SDK" color="border-purple-500">
+            <ArchBox title="Connector SDK" color="border-cyan-400">
                  <p className="text-sm text-gray-400 mt-2">Authentication & Data Models</p>
             </ArchBox>
             <RightArrow />

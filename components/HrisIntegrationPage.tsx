@@ -29,7 +29,7 @@ const HrisIntegrationPage: React.FC = () => {
                 <p className="text-sm text-gray-400 mt-2">Employee & Talent Data</p>
             </ArchBox>
             <RightArrow />
-            <ArchBox title="Secure Connector" color="border-purple-500">
+            <ArchBox title="Secure Connector" color="border-cyan-400">
                  <p className="text-sm text-gray-400 mt-2">Scheduled Data Sync</p>
             </ArchBox>
             <RightArrow />
