@@ -307,22 +307,22 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
             <button
               type="button"
               onClick={() => navigateFromMobileMenu('dashboard')}
-              className="block w-full border-b border-white/10 px-3 py-3 text-left text-sm font-bold text-slate-100 hover:bg-cyan-300/10 hover:text-white"
+              className="block w-full border-b border-white/10 px-3 py-3 text-left text-base font-bold text-red-400 hover:bg-cyan-300/10 hover:text-red-300"
             >
               Dashboard
             </button>
 
             {mobileNavGroups.map((group) => (
               <details key={group.title} className="group border-b border-white/10">
-                <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-3 text-sm font-bold text-slate-100 hover:bg-cyan-300/10 hover:text-white [&::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-3 text-base font-bold text-red-400 hover:bg-cyan-300/10 hover:text-red-300 [&::-webkit-details-marker]:hidden">
                   {group.title}
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-slate-100 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
                 <div className="pb-2 pl-3">
                   {group.links.map((link, index) => link.section ? (
-                    <div key={`${link.name}-${index}`} className="px-4 pb-1 pt-3 text-[11px] font-black uppercase tracking-[0.22em] text-cyan-300">
+                    <div key={`${link.name}-${index}`} className="px-4 pb-1 pt-3 text-sm font-black uppercase tracking-[0.22em] text-red-400">
                       {link.name}
                     </div>
                   ) : link.href ? (
@@ -332,7 +332,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
                       target="_blank"
                       rel="noreferrer"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block w-full px-4 py-2.5 text-left text-sm text-slate-300 hover:bg-cyan-300/10 hover:text-cyan-100"
+                      className="block w-full px-4 py-2.5 text-left text-base text-red-400 hover:bg-cyan-300/10 hover:text-red-300"
                     >
                       {link.name}
                     </a>
@@ -341,7 +341,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
                       key={`${link.page}-${index}`}
                       type="button"
                       onClick={() => navigateFromMobileMenu(link.page)}
-                      className="block w-full px-4 py-2.5 text-left text-sm text-slate-300 hover:bg-cyan-300/10 hover:text-cyan-100"
+                      className="block w-full px-4 py-2.5 text-left text-base text-red-400 hover:bg-cyan-300/10 hover:text-red-300"
                     >
                       {link.name}
                     </button>
