@@ -5,7 +5,7 @@ import ResultsScoreGauge from './ResultsScoreGauge';
 import ResultsDomainScoreChart from './ResultsDomainScoreChart';
 import ResultsRecommendationCard from './ResultsRecommendationCard';
 import DomainMaturityCard from './DomainMaturityCard';
-import { downloadReport, type ReportDefinition } from './ReportDetailPage';
+import { downloadReport, ExpandedReportGroups, type ReportDefinition } from './ReportDetailPage';
 
 interface ResultsPageProps {
   results: AssessmentReport | null;
@@ -100,8 +100,9 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ results, onReset }) => {
              <div className="lg:col-span-3 bg-gray-800/50 border border-gray-700/30 rounded-lg p-6 flex flex-col items-center justify-center">
                 <h2 className="text-xl font-bold text-white mb-4">Domain Maturity Overview</h2>
                 {domainScores.length > 2 && <ResultsDomainScoreChart scores={domainScores} />}
-            </div>
+             </div>
         </div>
+        <ExpandedReportGroups reportTitle={readinessDownload.title} section={readinessDownload.sections[0]} sectionIndex={0} />
         </section>
 
         <section className="mb-8 rounded-xl border border-cyan-300/15 bg-[#061526]/70 p-5 sm:p-7">
@@ -116,6 +117,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ results, onReset }) => {
                 items={recommendationItems}
                 type="recommendation"
             />
+            <ExpandedReportGroups reportTitle={readinessDownload.title} section={readinessDownload.sections[1]} sectionIndex={1} />
         </section>
 
         <div className="mt-12 text-center">

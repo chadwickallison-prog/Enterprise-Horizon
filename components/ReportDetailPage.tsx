@@ -14,7 +14,7 @@ export interface ReportDefinition {
   sections: [ReportSection, ReportSection];
 }
 
-const reportDefinitions = {
+export const reportDefinitions = {
   quarterly: {
     title: 'Quarterly SII Trends Report',
     subtitle: 'Track enterprise intelligence, security and operating maturity across each reporting period.',
@@ -331,13 +331,94 @@ const reportDefinitions = {
 
 export type StaticReportKey = keyof typeof reportDefinitions;
 
+interface ExpansionGroup {
+  title: string;
+  items: string[];
+}
+
+const buildExpandedGroups = (reportTitle: string, section: ReportSection, sectionIndex: number): ExpansionGroup[] => {
+  const sectionLabel = sectionIndex === 0 ? 'current-state and performance' : 'forward plan and scale';
+  const primaryMeasure = section.measures[0];
+  const primaryAction = section.actions[0];
+
+  return [
+    {
+      title: 'Data depth and evidence model',
+      items: [
+        `Create a governed source registry for the ${reportTitle}, mapping every measure to its system of record, data owner, refresh cadence and retention requirement.`,
+        `Preserve a verified baseline plus at least four comparison periods so ${sectionLabel} conclusions are based on trend evidence rather than a single snapshot.`,
+        `Segment results by business unit, geography, platform, criticality and risk tier to expose averages that may conceal material outliers.`,
+        `Assign a confidence grade to each conclusion based on completeness, freshness, reconciliation status and independent validation of the underlying data.`
+      ]
+    },
+    {
+      title: 'KPI interpretation and target model',
+      items: [
+        `For every KPI, display the baseline, current result, approved target, tolerance range, trend direction and accountable owner.`,
+        `Separate leading indicators that predict change from lagging indicators that confirm an outcome after it has occurred.`,
+        `Connect ${primaryMeasure.toLowerCase()} to financial, operational, security and workforce consequences where evidence supports the relationship.`,
+        `Document formulas, exclusions and material assumptions so executives, operators and auditors interpret the measurement consistently.`
+      ]
+    },
+    {
+      title: 'Risk, dependency and scenario analysis',
+      items: [
+        `Maintain a dependency map covering technology, data, suppliers, workforce, policy and funding conditions that could alter the reported outcome.`,
+        `Model conservative, expected and accelerated scenarios with explicit triggers that indicate when leadership should change course.`,
+        `Identify concentration risk, single points of failure and cross-domain dependencies before an initiative is approved for wider use.`,
+        `Pair each material risk with an owner, response, decision deadline, residual exposure and evidence that confirms whether the response worked.`
+      ]
+    },
+    {
+      title: 'Enterprise scale path',
+      items: [
+        `Phase 1 — Baseline: validate definitions, evidence and ownership within one representative business area before broader deployment.`,
+        `Phase 2 — Controlled expansion: prove repeatability across two additional operating environments with different risk and integration profiles.`,
+        `Phase 3 — Enterprise rollout: standardize controls, integrations, training, service levels and reporting while preserving local accountability.`,
+        `Phase 4 — Continuous optimization: automate reliable measurements, compare realized value with the business case and retire controls or processes that no longer add value.`
+      ]
+    },
+    {
+      title: 'Governance, accountability and assurance',
+      items: [
+        `Name an executive sponsor, operating owner, data steward, control owner and financial validator for the ${reportTitle}.`,
+        `Review performance monthly at the operating level and quarterly at the executive level, with exceptions escalated against defined thresholds.`,
+        `Apply change control to definitions, targets, source data and calculation logic so historical comparisons remain trustworthy.`,
+        `Retain an approval and evidence trail that records who reviewed the report, what decisions were made and when follow-up actions were verified.`
+      ]
+    },
+    {
+      title: '30–60–90 day execution plan',
+      items: [
+        `Days 0–30: validate the baseline, close critical data gaps, confirm owners and approve target definitions for this section.`,
+        `Days 31–60: execute the highest-priority actions in a controlled scope and measure operational impact against the approved baseline.`,
+        `Days 61–90: ${primaryAction} Confirm evidence, resolve exceptions and present the scale decision to the accountable leadership group.`,
+        `Quarterly: refresh the assessment, compare realized outcomes with projections and re-rank the roadmap as enterprise conditions change.`
+      ]
+    }
+  ];
+};
+
+export const ExpandedReportGroups: React.FC<{ reportTitle: string; section: ReportSection; sectionIndex: number }> = ({ reportTitle, section, sectionIndex }) => (
+  <div className="mt-7 space-y-5">
+    {buildExpandedGroups(reportTitle, section, sectionIndex).map(group => (
+      <div key={group.title} className="rounded-lg border border-white/10 bg-black/20 p-4 sm:p-5">
+        <h3 className="text-lg font-black text-cyan-100 sm:text-xl">{group.title}</h3>
+        <ul className="mt-3 space-y-3 text-base leading-7 text-gray-200 sm:text-lg">
+          {group.items.map(item => <li key={item} className="flex gap-3"><span className="text-cyan-300">•</span><span>{item}</span></li>)}
+        </ul>
+      </div>
+    ))}
+  </div>
+);
+
 export const downloadReport = (report: ReportDefinition) => {
   const lines = [
     report.title,
     report.subtitle,
     `Generated ${new Date().toLocaleDateString()}`,
     '',
-    ...report.sections.flatMap(section => [
+    ...report.sections.flatMap((section, sectionIndex) => [
       section.title,
       section.overview,
       '',
@@ -347,6 +428,11 @@ export const downloadReport = (report: ReportDefinition) => {
       'Recommended actions',
       ...section.actions.map(item => `• ${item}`),
       '',
+      ...buildExpandedGroups(report.title, section, sectionIndex).flatMap(group => [
+        group.title,
+        ...group.items.map(item => `• ${item}`),
+        ''
+      ]),
     ]),
     'Enterprise Horizon · Galaxity AI'
   ];
@@ -383,7 +469,7 @@ const ReportDetailPage: React.FC<{ reportKey: StaticReportKey }> = ({ reportKey 
       </div>
 
       <div className="mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-6 lg:grid-cols-2">
-        {report.sections.map(section => (
+        {report.sections.map((section, sectionIndex) => (
           <section key={section.title} className="rounded-xl border border-cyan-300/15 bg-[#061526]/85 p-5 sm:p-7">
             <h2 className="text-2xl font-black text-white">{section.title}</h2>
             <p className="mt-4 text-base leading-7 text-gray-200 sm:text-lg">{section.overview}</p>
@@ -397,6 +483,8 @@ const ReportDetailPage: React.FC<{ reportKey: StaticReportKey }> = ({ reportKey 
             <ul className="mt-3 space-y-3 text-base leading-7 text-gray-200 sm:text-lg">
               {section.actions.map(item => <li key={item} className="flex gap-3"><span className="text-cyan-300">•</span><span>{item}</span></li>)}
             </ul>
+
+            <ExpandedReportGroups reportTitle={report.title} section={section} sectionIndex={sectionIndex} />
           </section>
         ))}
       </div>

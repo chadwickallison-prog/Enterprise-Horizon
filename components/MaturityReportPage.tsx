@@ -3,7 +3,7 @@ import type { User, AssessmentReport } from '../types';
 import { getLastAssessmentReport } from '../services/apiService';
 import LoadingSpinner from './LoadingSpinner';
 import DomainMaturityCard from './DomainMaturityCard';
-import { downloadReport, type ReportDefinition } from './ReportDetailPage';
+import { downloadReport, ExpandedReportGroups, type ReportDefinition } from './ReportDetailPage';
 
 const MaturityReportPage: React.FC<{ user: User }> = ({ user }) => {
   const [report, setReport] = useState<AssessmentReport | null>(null);
@@ -102,6 +102,7 @@ const MaturityReportPage: React.FC<{ user: User }> = ({ user }) => {
               </ul>
             </div>
           </div>
+          <ExpandedReportGroups reportTitle={maturityDownload.title} section={maturityDownload.sections[0]} sectionIndex={0} />
         </section>
 
         <section className="rounded-xl border border-cyan-300/15 bg-[#061526]/85 p-5 sm:p-7">
@@ -110,6 +111,7 @@ const MaturityReportPage: React.FC<{ user: User }> = ({ user }) => {
           <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {report.domainAnalyses.map((domain, index) => <DomainMaturityCard key={index} domainAnalysis={domain} />)}
           </div>
+          <ExpandedReportGroups reportTitle={maturityDownload.title} section={maturityDownload.sections[1]} sectionIndex={1} />
         </section>
       </div>
     </div>
