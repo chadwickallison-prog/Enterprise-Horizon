@@ -302,7 +302,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
       </div>
 
       {isMobileMenuOpen && (
-        <nav id="mobile-navigation" aria-label="Mobile navigation" className="xl:hidden absolute left-0 right-0 top-full border-t border-sky-200/15 border-b border-sky-200/20 bg-[#020b14]/98 shadow-2xl backdrop-blur-xl">
+        <nav id="mobile-navigation" aria-label="Mobile navigation" className="xl:hidden border-t border-sky-200/15 border-b border-sky-200/20 bg-[#020b14]/98 shadow-2xl backdrop-blur-xl">
           <div className="mx-auto max-h-[calc(100vh-5rem)] max-w-7xl overflow-y-auto px-4 py-4 sm:px-6">
             <button
               type="button"
