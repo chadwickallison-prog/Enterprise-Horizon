@@ -102,6 +102,7 @@ const NavDropdown: React.FC<{
 const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, onBack, onForward, canGoBack, canGoForward, onRequestDemo }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const userCloseTimer = useRef<number | null>(null);
   const isAuthenticated = !!user;
 
@@ -184,6 +185,21 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
     { name: 'Employee Sentiment', page: 'sentiment-report' },
   ];
 
+  const mobileNavGroups = [
+    { title: 'Enterprise Solutions', links: enterpriseSolutionsLinks },
+    { title: 'Quantum Security', links: quantumSecurityLinks },
+    { title: 'Blockchain', links: blockchainLinks },
+    { title: 'Integrations', links: integrationsLinks },
+    { title: 'Pilots', links: pilotsLinks },
+    { title: 'Reports', links: reportsLinks },
+  ];
+
+  const navigateFromMobileMenu = (page?: string) => {
+    if (!page) return;
+    setIsMobileMenuOpen(false);
+    onNavigate(page);
+  };
+
   return (
     <header className="relative z-40 w-full border-b border-sky-200/15 bg-[#02070d]/90 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.34)]">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -240,6 +256,20 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
               Request a Demo
             </button>
 
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(open => !open)}
+              className="xl:hidden inline-flex items-center gap-2 rounded-md border border-cyan-200/25 bg-[#071a2e] px-3 py-2 text-sm font-bold text-slate-100 hover:border-cyan-200/50 hover:text-white transition-colors"
+              aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
+            >
+              Menu
+              <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform ${isMobileMenuOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
             {user ? (
               <div className="relative" onMouseEnter={openUserMenu} onMouseLeave={scheduleUserMenuClose}>
                 <button
@@ -270,6 +300,58 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
           </div>
         </div>
       </div>
+
+      {isMobileMenuOpen && (
+        <nav id="mobile-navigation" aria-label="Mobile navigation" className="xl:hidden absolute left-0 right-0 top-full border-t border-sky-200/15 border-b border-sky-200/20 bg-[#020b14]/98 shadow-2xl backdrop-blur-xl">
+          <div className="mx-auto max-h-[calc(100vh-5rem)] max-w-7xl overflow-y-auto px-4 py-4 sm:px-6">
+            <button
+              type="button"
+              onClick={() => navigateFromMobileMenu('dashboard')}
+              className="block w-full border-b border-white/10 px-3 py-3 text-left text-sm font-bold text-slate-100 hover:bg-cyan-300/10 hover:text-white"
+            >
+              Dashboard
+            </button>
+
+            {mobileNavGroups.map((group) => (
+              <details key={group.title} className="group border-b border-white/10">
+                <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-3 text-sm font-bold text-slate-100 hover:bg-cyan-300/10 hover:text-white [&::-webkit-details-marker]:hidden">
+                  {group.title}
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div className="pb-2 pl-3">
+                  {group.links.map((link, index) => link.section ? (
+                    <div key={`${link.name}-${index}`} className="px-4 pb-1 pt-3 text-[11px] font-black uppercase tracking-[0.22em] text-cyan-300">
+                      {link.name}
+                    </div>
+                  ) : link.href ? (
+                    <a
+                      key={`${link.href}-${index}`}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block w-full px-4 py-2.5 text-left text-sm text-slate-300 hover:bg-cyan-300/10 hover:text-cyan-100"
+                    >
+                      {link.name}
+                    </a>
+                  ) : (
+                    <button
+                      key={`${link.page}-${index}`}
+                      type="button"
+                      onClick={() => navigateFromMobileMenu(link.page)}
+                      className="block w-full px-4 py-2.5 text-left text-sm text-slate-300 hover:bg-cyan-300/10 hover:text-cyan-100"
+                    >
+                      {link.name}
+                    </button>
+                  ))}
+                </div>
+              </details>
+            ))}
+          </div>
+        </nav>
+      )}
     </header>
   );
 };
