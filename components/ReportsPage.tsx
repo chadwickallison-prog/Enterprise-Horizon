@@ -26,7 +26,7 @@ const ReportCard: React.FC<ReportCardProps> = ({ title, subtitle, page, onNaviga
             type="button"
             onClick={(event) => {
                 event.stopPropagation();
-                if (reportKey) downloadReport(reportDefinitions[reportKey]);
+                if (reportKey) void downloadReport(reportDefinitions[reportKey]);
                 else onNavigate(page);
             }}
             aria-label={`Download ${title} report`}

@@ -44,7 +44,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ results, onReset }) => {
     const readinessDownload: ReportDefinition = {
         title: 'Sovereign Intelligence Readiness Report',
         subtitle: `Overall Sovereign Intelligence Index: ${siiScore}/100`,
-        filename: 'enterprise-horizon-sovereign-intelligence-readiness.txt',
+        filename: 'enterprise-horizon-sovereign-intelligence-readiness.pdf',
         sections: [
             {
                 title: 'Section 1 — Executive Readiness Position',
@@ -67,7 +67,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ results, onReset }) => {
             <h1 className="text-3xl font-black text-white sm:text-4xl">Sovereign Intelligence Readiness Report</h1>
             <button
                 type="button"
-                onClick={() => downloadReport(readinessDownload)}
+                onClick={() => void downloadReport(readinessDownload)}
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-200/25 bg-gradient-to-r from-[#0b5f9c] via-[#157db8] to-[#60c7e8] px-6 py-3 text-base font-bold text-white shadow-[0_8px_24px_rgba(21,125,184,0.28)] transition-transform hover:scale-[1.02] hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-cyan-300/30 sm:w-auto"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" /></svg>

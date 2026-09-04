@@ -38,7 +38,7 @@ const MaturityReportPage: React.FC<{ user: User }> = ({ user }) => {
   const maturityDownload: ReportDefinition = {
     title: 'Maturity Breakdown Report',
     subtitle: `Overall Sovereign Intelligence Index: ${report.siiScore}/100`,
-    filename: 'enterprise-horizon-maturity-breakdown.txt',
+    filename: 'enterprise-horizon-maturity-breakdown.pdf',
     sections: [
       {
         title: 'Section 1 — Executive Maturity Position',
@@ -73,7 +73,7 @@ const MaturityReportPage: React.FC<{ user: User }> = ({ user }) => {
         </p>
         <button
           type="button"
-          onClick={() => downloadReport(maturityDownload)}
+          onClick={() => void downloadReport(maturityDownload)}
           className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-200/25 bg-gradient-to-r from-[#0b5f9c] via-[#157db8] to-[#60c7e8] px-6 py-3 text-base font-bold text-white shadow-[0_8px_24px_rgba(21,125,184,0.28)] transition-transform hover:scale-[1.02] hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-cyan-300/30 sm:w-auto"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

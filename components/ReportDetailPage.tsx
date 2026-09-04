@@ -18,7 +18,7 @@ export const reportDefinitions = {
   quarterly: {
     title: 'Quarterly SII Trends Report',
     subtitle: 'Track enterprise intelligence, security and operating maturity across each reporting period.',
-    filename: 'enterprise-horizon-quarterly-sii-trends.txt',
+    filename: 'enterprise-horizon-quarterly-sii-trends.pdf',
     sections: [
       {
         title: 'Section 1 — Performance Trajectory',
@@ -57,7 +57,7 @@ export const reportDefinitions = {
   benchmark: {
     title: 'Industry Benchmark Report',
     subtitle: 'Compare enterprise readiness with sector peers, leading performers and strategic targets.',
-    filename: 'enterprise-horizon-industry-benchmark.txt',
+    filename: 'enterprise-horizon-industry-benchmark.pdf',
     sections: [
       {
         title: 'Section 1 — Competitive Position',
@@ -96,7 +96,7 @@ export const reportDefinitions = {
   pilot: {
     title: 'Pilot Success Metrics Report',
     subtitle: 'Measure execution, adoption, financial value and production readiness for every pilot.',
-    filename: 'enterprise-horizon-pilot-success-metrics.txt',
+    filename: 'enterprise-horizon-pilot-success-metrics.pdf',
     sections: [
       {
         title: 'Section 1 — Pilot Execution & Adoption',
@@ -135,7 +135,7 @@ export const reportDefinitions = {
   risk: {
     title: 'Risk & Compliance Report',
     subtitle: 'Translate enterprise readiness into control coverage, exposure and audit-ready action.',
-    filename: 'enterprise-horizon-risk-and-compliance.txt',
+    filename: 'enterprise-horizon-risk-and-compliance.pdf',
     sections: [
       {
         title: 'Section 1 — Exposure & Control Coverage',
@@ -174,7 +174,7 @@ export const reportDefinitions = {
   cost: {
     title: 'Cost Optimization (FinOps) Report',
     subtitle: 'Expose technology cost drivers and convert savings opportunities into accountable execution.',
-    filename: 'enterprise-horizon-cost-optimization.txt',
+    filename: 'enterprise-horizon-cost-optimization.pdf',
     sections: [
       {
         title: 'Section 1 — Spend Transparency & Efficiency',
@@ -213,7 +213,7 @@ export const reportDefinitions = {
   automation: {
     title: 'Automation ROI Report',
     subtitle: 'Connect automation investment to verified financial, operational and workforce outcomes.',
-    filename: 'enterprise-horizon-automation-roi.txt',
+    filename: 'enterprise-horizon-automation-roi.pdf',
     sections: [
       {
         title: 'Section 1 — Value Realization',
@@ -252,7 +252,7 @@ export const reportDefinitions = {
   security: {
     title: 'Security Posture Report',
     subtitle: 'Evaluate present-day resilience and readiness for the quantum-era threat environment.',
-    filename: 'enterprise-horizon-security-posture.txt',
+    filename: 'enterprise-horizon-security-posture.pdf',
     sections: [
       {
         title: 'Section 1 — Current Resilience & Attack Surface',
@@ -291,7 +291,7 @@ export const reportDefinitions = {
   sentiment: {
     title: 'Employee Sentiment & Culture Report',
     subtitle: 'Measure workforce readiness, trust, capability and adoption across transformation programs.',
-    filename: 'enterprise-horizon-employee-sentiment-and-culture.txt',
+    filename: 'enterprise-horizon-employee-sentiment-and-culture.pdf',
     sections: [
       {
         title: 'Section 1 — Workforce Readiness & Sentiment',
@@ -412,40 +412,97 @@ export const ExpandedReportGroups: React.FC<{ reportTitle: string; section: Repo
   </div>
 );
 
-export const downloadReport = (report: ReportDefinition) => {
-  const lines = [
-    report.title,
-    report.subtitle,
-    `Generated ${new Date().toLocaleDateString()}`,
-    '',
-    ...report.sections.flatMap((section, sectionIndex) => [
-      section.title,
-      section.overview,
-      '',
-      'Measurements and findings',
-      ...section.measures.map(item => `• ${item}`),
-      '',
-      'Recommended actions',
-      ...section.actions.map(item => `• ${item}`),
-      '',
-      ...buildExpandedGroups(report.title, section, sectionIndex).flatMap(group => [
-        group.title,
-        ...group.items.map(item => `• ${item}`),
-        ''
-      ]),
-    ]),
-    'Enterprise Horizon · Galaxity AI'
-  ];
+export const downloadReport = async (report: ReportDefinition) => {
+  const { jsPDF } = await import('jspdf');
+  const document = new jsPDF({ unit: 'pt', format: 'letter', orientation: 'portrait' });
+  const pageWidth = document.internal.pageSize.getWidth();
+  const pageHeight = document.internal.pageSize.getHeight();
+  const margin = 54;
+  const contentWidth = pageWidth - (margin * 2);
+  let y = 54;
 
-  const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement('a');
-  anchor.href = url;
-  anchor.download = report.filename;
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  URL.revokeObjectURL(url);
+  const safeText = (text: string) => text.replace(/[—–‑]/g, '-').replace(/·/g, '|');
+
+  const addPage = () => {
+    document.addPage();
+    y = 54;
+  };
+
+  const ensureSpace = (height: number) => {
+    if (y + height > pageHeight - 58) addPage();
+  };
+
+  const addWrappedText = (text: string, size = 10.5, color: [number, number, number] = [45, 55, 72], indent = 0) => {
+    document.setFont('helvetica', 'normal');
+    document.setFontSize(size);
+    document.setTextColor(...color);
+    const lines = document.splitTextToSize(safeText(text), contentWidth - indent);
+    const lineHeight = size * 1.45;
+    lines.forEach((line: string) => {
+      ensureSpace(lineHeight);
+      document.text(line, margin + indent, y);
+      y += lineHeight;
+    });
+    y += 5;
+  };
+
+  const addHeading = (text: string, size: number, color: [number, number, number] = [5, 71, 120]) => {
+    ensureSpace(size * 2.2);
+    document.setFont('helvetica', 'bold');
+    document.setFontSize(size);
+    document.setTextColor(...color);
+    const lines = document.splitTextToSize(safeText(text), contentWidth);
+    document.text(lines, margin, y);
+    y += (lines.length * size * 1.25) + 8;
+  };
+
+  const addBulletList = (items: string[]) => {
+    items.forEach(item => addWrappedText(`- ${item}`, 10.5, [45, 55, 72], 10));
+  };
+
+  document.setFillColor(2, 21, 37);
+  document.rect(0, 0, pageWidth, 150, 'F');
+  document.setFont('helvetica', 'bold');
+  document.setFontSize(23);
+  document.setTextColor(255, 255, 255);
+  const titleLines = document.splitTextToSize(safeText(report.title), contentWidth);
+  document.text(titleLines, margin, y);
+  y += (titleLines.length * 28) + 8;
+  document.setFont('helvetica', 'normal');
+  document.setFontSize(10.5);
+  document.setTextColor(180, 220, 242);
+  document.text(document.splitTextToSize(safeText(report.subtitle), contentWidth), margin, y);
+  y = 174;
+  addWrappedText(`Generated ${new Date().toLocaleDateString()} | Enterprise Horizon | Galaxity AI`, 9.5, [82, 96, 114]);
+
+  report.sections.forEach((section, sectionIndex) => {
+    ensureSpace(90);
+    addHeading(section.title, 17, [4, 88, 145]);
+    addWrappedText(section.overview, 11, [35, 45, 60]);
+    addHeading('Measurements and findings', 12);
+    addBulletList(section.measures);
+    addHeading('Recommended actions', 12);
+    addBulletList(section.actions);
+
+    buildExpandedGroups(report.title, section, sectionIndex).forEach(group => {
+      addHeading(group.title, 12);
+      addBulletList(group.items);
+    });
+  });
+
+  const pageCount = document.getNumberOfPages();
+  for (let page = 1; page <= pageCount; page += 1) {
+    document.setPage(page);
+    document.setDrawColor(190, 205, 218);
+    document.line(margin, pageHeight - 40, pageWidth - margin, pageHeight - 40);
+    document.setFont('helvetica', 'normal');
+    document.setFontSize(8.5);
+    document.setTextColor(90, 105, 120);
+    document.text('Enterprise Horizon | Galaxity AI', margin, pageHeight - 24);
+    document.text(`Page ${page} of ${pageCount}`, pageWidth - margin, pageHeight - 24, { align: 'right' });
+  }
+
+  document.save(report.filename);
 };
 
 const ReportDetailPage: React.FC<{ reportKey: StaticReportKey }> = ({ reportKey }) => {
@@ -458,7 +515,7 @@ const ReportDetailPage: React.FC<{ reportKey: StaticReportKey }> = ({ reportKey 
         <p className="mx-auto mt-3 max-w-3xl text-base leading-7 text-gray-300 sm:text-lg">{report.subtitle}</p>
         <button
           type="button"
-          onClick={() => downloadReport(report)}
+          onClick={() => void downloadReport(report)}
           className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-200/25 bg-gradient-to-r from-[#0b5f9c] via-[#157db8] to-[#60c7e8] px-6 py-3 text-base font-bold text-white shadow-[0_8px_24px_rgba(21,125,184,0.28)] transition-transform hover:scale-[1.02] hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-cyan-300/30 sm:w-auto"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

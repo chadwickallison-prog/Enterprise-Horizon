@@ -37,6 +37,7 @@ import CostOptimizationReportPage from './components/CostOptimizationReportPage'
 import AutomationRoiReportPage from './components/AutomationRoiReportPage';
 import SecurityPostureReportPage from './components/SecurityPostureReportPage';
 import EmployeeSentimentReportPage from './components/EmployeeSentimentReportPage';
+import CareersPage from './components/CareersPage';
 import StarnetHaloVortexPage from './components/StarnetHaloVortexPage';
 import NovaCoreHyperionPage from './components/NovaCoreHyperionPage';
 import OrbitAINovaSynapsePage from './components/OrbitAINovaSynapsePage';
@@ -337,6 +338,7 @@ const App: React.FC = () => {
         case 'automation-roi-report': return <AutomationRoiReportPage />;
         case 'security-report': return <SecurityPostureReportPage />;
         case 'sentiment-report': return <EmployeeSentimentReportPage />;
+        case 'careers': return <CareersPage />;
         case 'solutions': return <SolutionsPage onNavigate={handleNavigate} onContact={() => setIsContactModalOpen(true)} />;
         case 'starnet-halo-vortex': return <StarnetHaloVortexPage />;
         case 'novacore-hyperion': return <NovaCoreHyperionPage />;

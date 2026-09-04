@@ -54,7 +54,7 @@ const NavDropdown: React.FC<{
         type="button"
         onClick={() => setIsOpen(open => !open)}
         aria-expanded={isOpen}
-        className="px-3 py-2 rounded-md text-sm font-medium flex items-center text-slate-200 hover:text-white hover:bg-white/5 transition-all"
+        className="px-2 py-2 rounded-md text-sm font-medium flex items-center text-slate-200 hover:text-white hover:bg-white/5 transition-all"
       >
         {title}
         <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 ml-1 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -194,6 +194,12 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
     { title: 'Reports', links: reportsLinks },
   ];
 
+  const relatedSiteLinks: NavItem[] = [
+    { name: 'Youniverse1', href: 'https://www.youniverse1.com/' },
+    { name: 'Galaxity AI', href: 'https://www.galaxityai.com/' },
+    { name: 'Careers', page: 'careers' },
+  ];
+
   const navigateFromMobileMenu = (page?: string) => {
     if (!page) return;
     setIsMobileMenuOpen(false);
@@ -202,8 +208,8 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
 
   return (
     <header className="relative z-40 w-full border-b border-sky-200/15 bg-[#02070d]/90 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.34)]">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-4 gap-4">
+      <div className="mx-auto w-full max-w-[1800px] px-3 sm:px-5 lg:px-6">
+        <div className="flex items-center justify-between gap-2 py-4">
           <div className="flex items-center shrink-0">
             <button
               type="button"
@@ -230,14 +236,17 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
             </div>
           </div>
 
-          <nav className="hidden xl:flex items-center space-x-1">
-            <button onClick={() => onNavigate('dashboard')} className="text-slate-200 hover:text-white hover:bg-white/5 transition-all px-3 py-2 rounded-md text-sm font-medium">Dashboard</button>
+          <nav className="hidden 2xl:flex items-center space-x-0">
+            <button onClick={() => onNavigate('dashboard')} className="text-slate-200 hover:text-white hover:bg-white/5 transition-all px-2 py-2 rounded-md text-sm font-medium">Dashboard</button>
             <NavDropdown title="Enterprise Solutions" links={enterpriseSolutionsLinks} onNavigate={onNavigate} />
             <NavDropdown title="Quantum Security" links={quantumSecurityLinks} onNavigate={onNavigate} />
             <NavDropdown title="Blockchain" links={blockchainLinks} onNavigate={onNavigate} />
             <NavDropdown title="Integrations" links={integrationsLinks} onNavigate={onNavigate} />
             <NavDropdown title="Pilots" links={pilotsLinks} onNavigate={onNavigate} />
             <NavDropdown title="Reports" links={reportsLinks} onNavigate={onNavigate} />
+            <a href="https://www.youniverse1.com/" className="rounded-md px-2 py-2 text-sm font-medium text-slate-200 transition-all hover:bg-white/5 hover:text-white">Youniverse1</a>
+            <a href="https://www.galaxityai.com/" className="rounded-md px-2 py-2 text-sm font-medium text-slate-200 transition-all hover:bg-white/5 hover:text-white">Galaxity AI</a>
+            <button onClick={() => onNavigate('careers')} className="rounded-md px-2 py-2 text-sm font-medium text-slate-200 transition-all hover:bg-white/5 hover:text-white">Careers</button>
           </nav>
 
           <div className="flex items-center space-x-3 shrink-0">
@@ -259,7 +268,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(open => !open)}
-              className="xl:hidden inline-flex items-center gap-2 rounded-md border border-cyan-200/25 bg-[#071a2e] px-3 py-2 text-sm font-bold text-slate-100 hover:border-cyan-200/50 hover:text-white transition-colors"
+              className="2xl:hidden inline-flex items-center gap-2 rounded-md border border-cyan-200/25 bg-[#071a2e] px-3 py-2 text-sm font-bold text-slate-100 hover:border-cyan-200/50 hover:text-white transition-colors"
               aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-navigation"
@@ -302,7 +311,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
       </div>
 
       {isMobileMenuOpen && (
-        <nav id="mobile-navigation" aria-label="Mobile navigation" className="xl:hidden border-t border-sky-200/15 border-b border-sky-200/20 bg-[#020b14]/98 shadow-2xl backdrop-blur-xl">
+        <nav id="mobile-navigation" aria-label="Mobile navigation" className="2xl:hidden border-t border-sky-200/15 border-b border-sky-200/20 bg-[#020b14]/98 shadow-2xl backdrop-blur-xl">
           <div className="mx-auto max-h-[calc(100vh-5rem)] max-w-7xl overflow-y-auto px-4 py-4 sm:px-6">
             <button
               type="button"
@@ -349,6 +358,28 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
                 </div>
               </details>
             ))}
+
+            <div className="mt-2 border-t border-cyan-200/20 pt-2">
+              {relatedSiteLinks.map(link => link.href ? (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full px-3 py-3 text-left text-xl font-bold text-white hover:bg-cyan-300/10"
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <button
+                  key={link.name}
+                  type="button"
+                  onClick={() => navigateFromMobileMenu(link.page)}
+                  className="block w-full px-3 py-3 text-left text-xl font-bold text-white hover:bg-cyan-300/10"
+                >
+                  {link.name}
+                </button>
+              ))}
+            </div>
           </div>
         </nav>
       )}
