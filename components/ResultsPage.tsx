@@ -4,6 +4,8 @@ import type { AssessmentReport } from '../types';
 import ResultsScoreGauge from './ResultsScoreGauge';
 import ResultsDomainScoreChart from './ResultsDomainScoreChart';
 import ResultsRecommendationCard from './ResultsRecommendationCard';
+import DomainMaturityCard from './DomainMaturityCard';
+import { downloadReport, type ReportDefinition } from './ReportDetailPage';
 
 interface ResultsPageProps {
   results: AssessmentReport | null;
@@ -39,10 +41,42 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ results, onReset }) => {
         </span>
     ));
 
+    const readinessDownload: ReportDefinition = {
+        title: 'Sovereign Intelligence Readiness Report',
+        subtitle: `Overall Sovereign Intelligence Index: ${siiScore}/100`,
+        filename: 'enterprise-horizon-sovereign-intelligence-readiness.txt',
+        sections: [
+            {
+                title: 'Section 1 — Executive Readiness Position',
+                overview: executiveSummary,
+                measures: [`Overall Sovereign Intelligence Index: ${siiScore}/100.`, ...keyStrengths.map(item => `Verified strength: ${item}`)],
+                actions: ['Protect the strongest capabilities with accountable ownership and measurable operating standards.', 'Use the SII baseline to track progress at each future assessment.', 'Connect every readiness investment to a named business, security or operating outcome.']
+            },
+            {
+                title: 'Section 2 — Domain Findings & Strategic Actions',
+                overview: 'The domain analysis identifies the maturity evidence, capability gaps and priorities that should shape the enterprise roadmap.',
+                measures: domainAnalyses.map(domain => `${domain.domain}: ${domain.score}/100 — ${domain.analysis}`),
+                actions: recommendations.map(item => `${item.title}: ${item.content}`)
+            }
+        ]
+    };
+
   return (
     <div className="w-full bg-black/30 backdrop-blur-sm border border-gray-700/50 rounded-2xl shadow-2xl p-6 sm:p-8 animate-fade-in">
-        <h1 className="text-3xl font-black text-white text-center mb-8">Sovereign Intelligence Readiness Report</h1>
+        <div className="mb-8 text-center">
+            <h1 className="text-3xl font-black text-white sm:text-4xl">Sovereign Intelligence Readiness Report</h1>
+            <button
+                type="button"
+                onClick={() => downloadReport(readinessDownload)}
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-200/25 bg-gradient-to-r from-[#0b5f9c] via-[#157db8] to-[#60c7e8] px-6 py-3 text-base font-bold text-white shadow-[0_8px_24px_rgba(21,125,184,0.28)] transition-transform hover:scale-[1.02] hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-cyan-300/30 sm:w-auto"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
+                Download Report
+            </button>
+        </div>
 
+        <section className="mb-8 rounded-xl border border-cyan-300/15 bg-[#061526]/70 p-5 sm:p-7">
+        <h2 className="mb-6 text-2xl font-black text-white">Section 1 — Executive Readiness Position</h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
             <div className="lg:col-span-1 bg-gray-800/50 border border-gray-700/30 rounded-lg p-6 flex flex-col items-center justify-center">
                 <h2 className="text-xl font-bold text-gray-300 mb-4">Sovereign Intelligence Index (SII)</h2>
@@ -68,15 +102,21 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ results, onReset }) => {
                 {domainScores.length > 2 && <ResultsDomainScoreChart scores={domainScores} />}
             </div>
         </div>
+        </section>
 
-        <div className="mb-8">
+        <section className="mb-8 rounded-xl border border-cyan-300/15 bg-[#061526]/70 p-5 sm:p-7">
+            <h2 className="mb-4 text-2xl font-black text-white">Section 2 — Domain Findings & Strategic Actions</h2>
+            <p className="mb-6 text-base leading-7 text-gray-200 sm:text-lg">Review the detailed maturity evidence for every assessed domain, then use the prioritized recommendations to guide the next operating roadmap.</p>
+            <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {domainAnalyses.map((domain, index) => <DomainMaturityCard key={index} domainAnalysis={domain} />)}
+            </div>
             <ResultsRecommendationCard
                 title="Strategic Recommendations"
                 icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" viewBox="0 0 20 20" fill="currentColor"><path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" /></svg>}
                 items={recommendationItems}
                 type="recommendation"
             />
-        </div>
+        </section>
 
         <div className="mt-12 text-center">
             <button
