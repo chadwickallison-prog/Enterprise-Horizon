@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const roles = [
   { title: 'Enterprise Transformation Director', team: 'Strategy & Delivery', description: 'Lead enterprise assessments, operating-model design and measurable transformation roadmaps from executive alignment through delivery.' },
@@ -203,7 +204,7 @@ const CareersPage: React.FC = () => {
         </div>
       </section>
 
-      {activeRole && activeProfile && (
+      {activeRole && activeProfile && createPortal((
         <div className="fixed inset-0 z-[100] overflow-y-auto bg-black/90 p-3 sm:p-8" role="dialog" aria-modal="true" aria-labelledby="role-detail-title" onClick={() => setActiveRole(null)}>
           <div className="mx-auto max-w-6xl rounded-2xl border border-sky-300/25 bg-[#06111d] shadow-[0_30px_100px_rgba(0,0,0,.7)]" onClick={event => event.stopPropagation()}>
             <header className="flex items-start justify-between gap-6 border-b border-slate-600/50 p-6 sm:p-9">
@@ -266,7 +267,7 @@ const CareersPage: React.FC = () => {
             </div>
           </div>
         </div>
-      )}
+      ), document.body)}
     </div>
   );
 };
