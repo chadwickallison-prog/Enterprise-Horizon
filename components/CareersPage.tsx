@@ -25,6 +25,18 @@ const roles = [
 
 const resumeHref = (title: string) => `mailto:chadwickallison@galaxityai.com?subject=${encodeURIComponent(`${title} - Resume Submission`)}&body=${encodeURIComponent('Please attach your resume and include a brief message about your relevant experience.')}`;
 
+const categoryForTeam = (team: string) => {
+  if (team.includes('Blockchain')) return 'Enterprise Blockchain';
+  if (team.includes('Quantum')) return 'Quantum Security';
+  if (team.includes('AI') || team.includes('Intelligence')) return 'AI & Intelligence';
+  if (team.includes('Data') || team.includes('Integration') || team.includes('Digital Trust')) return 'Data & Digital Trust';
+  if (team.includes('Governance') || team.includes('Risk')) return 'Governance & Assurance';
+  if (team.includes('Cybersecurity')) return 'Cybersecurity';
+  if (team.includes('Product') || team.includes('Platform')) return 'Product & Platform';
+  if (team.includes('Customer')) return 'Customer Delivery';
+  return 'Enterprise Strategy';
+};
+
 const CareersPage: React.FC = () => (
   <div className="w-full rounded-2xl border border-gray-700/50 bg-black/30 p-5 shadow-2xl backdrop-blur-sm animate-fade-in sm:p-8">
     <section className="mx-auto max-w-5xl text-center">
@@ -39,20 +51,41 @@ const CareersPage: React.FC = () => (
       </div>
     </section>
 
-    <section className="mx-auto mt-10 max-w-6xl" aria-labelledby="open-roles-title">
+    <section className="mx-auto mt-10 w-full" aria-labelledby="open-roles-title">
       <div className="mb-6">
         <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-300">Open talent network</p>
         <h2 id="open-roles-title" className="mt-2 text-3xl font-black text-white">Enterprise Horizon roles</h2>
         <p className="mt-3 max-w-3xl text-base leading-7 text-gray-300 sm:text-lg">Hiring follows operating milestones and project requirements. Positions may begin through advisory, consulting or project-based work before moving into full-time roles.</p>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-        {roles.map(role => (
-          <article key={role.title} className="flex h-full flex-col rounded-xl border border-cyan-300/15 bg-[#061526]/85 p-5 sm:p-6">
-            <p className="text-sm font-black uppercase tracking-[0.16em] text-cyan-300">{role.team}</p>
-            <h3 className="mt-2 text-2xl font-black text-white">{role.title}</h3>
-            <p className="mt-3 flex-grow text-base leading-7 text-gray-200 sm:text-lg">{role.description}</p>
-            <a href={resumeHref(role.title)} className="mt-5 inline-flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-[#0b5f9c] via-[#157db8] to-[#60c7e8] px-5 py-3 text-base font-bold text-white hover:brightness-110 sm:w-fit">Send Your Resume</a>
+      <div className="border-t border-slate-600/55 bg-[#070c11]">
+        {roles.map((role, index) => (
+          <article
+            id={`position-${String(index + 1).padStart(2, '0')}`}
+            key={role.title}
+            className="grid min-h-[230px] grid-cols-[2.5rem_1fr] items-start gap-x-5 gap-y-5 border-b border-slate-600/55 px-1 py-8 sm:grid-cols-[3rem_1fr] sm:px-4 sm:py-10 xl:grid-cols-[3rem_minmax(17rem,1.35fr)_minmax(9rem,.75fr)_minmax(13rem,1fr)_minmax(18rem,1.15fr)] xl:gap-x-7"
+          >
+            <span className="pt-1 text-xs font-bold tracking-[0.18em] text-slate-500 sm:text-sm">{String(index + 1).padStart(2, '0')}</span>
+
+            <div>
+              <p className="mb-3 text-xs font-black uppercase tracking-[0.18em] text-sky-400 sm:text-sm">{categoryForTeam(role.team)}</p>
+              <h3 className="max-w-md font-[Georgia,serif] text-3xl font-normal leading-[1.08] tracking-[-0.025em] text-slate-50 sm:text-4xl">{role.title}</h3>
+              <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3">
+                <a href={resumeHref(role.title)} className="text-sm font-black tracking-[0.03em] text-slate-100 hover:text-sky-300 sm:text-base">Send Your Resume <span className="ml-3 text-sky-400">↗</span></a>
+                <details className="group/details relative">
+                  <summary className="cursor-pointer list-none border-b border-slate-400 pb-1 text-sm font-bold text-slate-400 transition-colors hover:text-white [&::-webkit-details-marker]:hidden">View role details</summary>
+                  <div className="absolute left-0 z-20 mt-3 w-[min(22rem,75vw)] rounded-lg border border-sky-300/20 bg-[#061526] p-4 text-sm leading-6 text-slate-200 shadow-2xl">
+                    <p className="font-bold text-white">{role.title}</p>
+                    <p className="mt-2">{role.description}</p>
+                    <p className="mt-3 text-slate-400">{role.team} · United States · Hybrid / Remote</p>
+                  </div>
+                </details>
+              </div>
+            </div>
+
+            <p className="col-start-2 m-0 text-base leading-7 text-slate-400 xl:col-auto">{role.team}</p>
+            <p className="col-start-2 m-0 text-base leading-7 text-slate-400 xl:col-auto">United States · Hybrid / Remote</p>
+            <p className="col-start-2 m-0 max-w-xl text-base leading-8 text-slate-300 xl:col-auto xl:text-lg">{role.description}</p>
           </article>
         ))}
       </div>
