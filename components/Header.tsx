@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import type { User } from '../types';
-import { logoBase64 } from '../assets/logo';
+import enterpriseHorizonLogo from '../assets/enterprise-horizon-created-logo.png';
 
 interface HeaderProps {
   user: User | null;
@@ -217,12 +217,12 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
               onClick={() => onNavigate(isAuthenticated ? 'dashboard' : 'login')}
               aria-label="Enterprise Horizon home"
             >
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-sky-200/30 bg-[#061526] shadow-[0_0_26px_rgba(96,199,232,0.2)] transition-colors group-hover:border-sky-200/55">
-                <img src={logoBase64} alt="" className="h-9 w-9 object-contain" />
-              </span>
-              <span className="hidden sm:block">
-                <span className="block text-lg font-bold tracking-wide text-white group-hover:text-cyan-100 transition-colors">Enterprise Horizon</span>
-                <span className="block text-[10px] uppercase tracking-[0.24em] text-sky-200/70">Galaxity AI</span>
+              <span className="relative h-12 w-32 shrink-0 overflow-hidden rounded-md sm:h-14 sm:w-64">
+                <img
+                  src={enterpriseHorizonLogo}
+                  alt="Enterprise Horizon"
+                  className="absolute left-1/2 top-1/2 w-[280px] max-w-none -translate-x-1/2 -translate-y-1/2 sm:w-[360px]"
+                />
               </span>
             </button>
 
