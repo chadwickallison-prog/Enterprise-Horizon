@@ -90,6 +90,7 @@ const App: React.FC = () => {
   const [integrationsToCombine, setIntegrationsToCombine] = useState<string[]>([]);
   const [isTtsEnabled, setIsTtsEnabled] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [contactTitle, setContactTitle] = useState('Request a Demo');
   const [history, setHistory] = useState<string[]>(['dashboard']);
   const [historyIndex, setHistoryIndex] = useState(0);
 
@@ -301,7 +302,7 @@ const App: React.FC = () => {
   };
 
   const renderContent = () => {
-    if (appState === 'auth') return <LandingPage {...commonLoginProps} onRequestDemo={() => setIsContactModalOpen(true)} />;
+    if (appState === 'auth') return <LandingPage {...commonLoginProps} onRequestDemo={() => {setContactTitle('Request a Demo'); setIsContactModalOpen(true);}} />;
     if (appState === 'loading') return <LoadingSpinner />;
     if (appState === 'dashboard' && user) return <DashboardPage user={user} onNavigate={handleNavigate} onFetchLastReport={handleFetchLastReport} />;
     if (appState === 'assessment') return <Questionnaire onSubmit={handleAssessmentSubmit} isTtsEnabled={isTtsEnabled} setIsTtsEnabled={setIsTtsEnabled} onNavigate={handleNavigate} />;
@@ -309,7 +310,7 @@ const App: React.FC = () => {
 
     if (appState === 'page') {
       switch (currentPage) {
-        case 'dashboard': return user ? <DashboardPage user={user} onNavigate={handleNavigate} onFetchLastReport={handleFetchLastReport} /> : <LandingPage {...commonLoginProps} onRequestDemo={() => setIsContactModalOpen(true)} />;
+        case 'dashboard': return user ? <DashboardPage user={user} onNavigate={handleNavigate} onFetchLastReport={handleFetchLastReport} /> : <LandingPage {...commonLoginProps} onRequestDemo={() => {setContactTitle('Request a Demo'); setIsContactModalOpen(true);}} />;
         case 'integrations': return <IntegrationsPage onBuildIntegrationPlan={handleBuildIntegrationPlan} />;
         case 'pilots': return <PilotPage onBuildInitiative={handleBuildInitiative} />;
         case 'custom-initiative-program': return <CustomInitiativeProgramPage onNavigate={handleNavigate} />;
@@ -329,7 +330,7 @@ const App: React.FC = () => {
         case 'security-report': return <SecurityPostureReportPage />;
         case 'sentiment-report': return <EmployeeSentimentReportPage />;
         case 'careers': return <CareersPage />;
-        case 'solutions': return <SolutionsPage onNavigate={handleNavigate} onContact={() => setIsContactModalOpen(true)} />;
+        case 'solutions': return <SolutionsPage onNavigate={handleNavigate} onContact={() => {setContactTitle('Contact Sales'); setIsContactModalOpen(true);}} />;
         case 'starnet-halo-vortex': return <StarnetHaloVortexPage />;
         case 'novacore-hyperion': return <NovaCoreHyperionPage />;
         case 'orbitai-novasynapse': return <OrbitAINovaSynapsePage />;
@@ -365,7 +366,7 @@ const App: React.FC = () => {
         case 'custom-initiative-plans': return user ? <CustomInitiativesPage user={user} onNavigate={handleNavigate} /> : <LoadingSpinner />;
         case 'combine-integrations': return user ? <CombineIntegrationsPage integrationsToCombine={integrationsToCombine} onSavePlan={handleSaveIntegrationPlan} onNavigate={handleNavigate} /> : <LoadingSpinner />;
         case 'custom-integration-plans': return user ? <CustomIntegrationPlansPage user={user} onNavigate={handleNavigate} /> : <LoadingSpinner />;
-        default: return user ? <DashboardPage user={user} onNavigate={handleNavigate} onFetchLastReport={handleFetchLastReport} /> : <LandingPage {...commonLoginProps} onRequestDemo={() => setIsContactModalOpen(true)} />;
+        default: return user ? <DashboardPage user={user} onNavigate={handleNavigate} onFetchLastReport={handleFetchLastReport} /> : <LandingPage {...commonLoginProps} onRequestDemo={() => {setContactTitle('Request a Demo'); setIsContactModalOpen(true);}} />;
       }
     }
 
@@ -384,7 +385,7 @@ const App: React.FC = () => {
           onForward={handleForward}
           canGoBack={historyIndex > 0}
           canGoForward={historyIndex < history.length - 1}
-          onRequestDemo={() => setIsContactModalOpen(true)}
+          onRequestDemo={() => {setContactTitle('Request a Demo'); setIsContactModalOpen(true);}}
         />
         <main className="flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8">
           {renderContent()}
@@ -393,7 +394,7 @@ const App: React.FC = () => {
           <p>&copy; {new Date().getFullYear()} Enterprise Horizon, a subsidiary of Youniverse1. All Rights Reserved. This is a conceptual demonstration.</p>
         </footer>
       </div>
-      {isContactModalOpen && <ContactModal onClose={() => setIsContactModalOpen(false)} />}
+      {isContactModalOpen && <ContactModal title={contactTitle} onClose={() => setIsContactModalOpen(false)} />}
     </div>
   );
 };
