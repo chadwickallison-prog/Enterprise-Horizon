@@ -6,7 +6,6 @@ interface HeaderProps {
   user: User | null;
   onNavigate: (page: string) => void;
   onLogout: () => void;
-  onSearch: (query: string) => void;
   onBack: () => void;
   onForward: () => void;
   canGoBack: boolean;
@@ -99,8 +98,7 @@ const NavDropdown: React.FC<{
   );
 };
 
-const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, onBack, onForward, canGoBack, canGoForward, onRequestDemo }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onBack, onForward, canGoBack, canGoForward, onRequestDemo }) => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const userCloseTimer = useRef<number | null>(null);
@@ -116,15 +114,6 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
     userCloseTimer.current = window.setTimeout(() => setIsUserMenuOpen(false), 220);
   };
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim() && isAuthenticated) {
-      onSearch(searchQuery.trim());
-      setSearchQuery('');
-    } else if (!isAuthenticated) {
-      alert('Please log in to use the search feature.');
-    }
-  };
 
   const enterpriseSolutionsLinks: NavItem[] = [
     { name: 'Solutions Hub', page: 'solutions'},
@@ -209,7 +198,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
   return (
     <header className="relative z-40 w-full border-b border-sky-200/15 bg-[#02070d]/90 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.34)]">
       <div className="mx-auto w-full max-w-[1800px] px-3 sm:px-5 lg:px-6">
-        <div className="flex items-center justify-between gap-2 py-4">
+        <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 py-4">
           <div className="flex items-center shrink-0">
             <button
               type="button"
@@ -250,16 +239,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
           </nav>
 
           <div className="flex items-center space-x-3 shrink-0">
-            <form onSubmit={handleSearchSubmit} className="relative hidden 2xl:block">
-              <input
-                type="search"
-                placeholder="Search Horizon..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-52 bg-[#071a2e]/90 border border-cyan-200/15 text-white placeholder-slate-500 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-300/40 focus:border-cyan-300/40"
-              />
-              <svg className="w-5 h-5 text-cyan-200/50 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-            </form>
+
 
             <button onClick={onRequestDemo} className="hidden 2xl:block bg-gradient-to-r from-[#0b5f9c] via-[#157db8] to-[#60c7e8] hover:brightness-110 text-white transition-all px-4 py-2 rounded-md text-sm font-bold shadow-[0_8px_24px_rgba(21,125,184,0.25)] border border-cyan-100/20">
               Request a Demo
@@ -383,6 +363,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout, onSearch, o
           </div>
         </nav>
       )}
+      <div className="px-4">{React.createElement("network-search")}</div>
     </header>
   );
 };

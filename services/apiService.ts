@@ -185,8 +185,6 @@ export const getLastAssessmentReport = async (userEmail: string): Promise<Assess
     return fakeApiFail('No assessment report found for this user.');
 };
 
-// --- Search ---
-export const searchPlatform = async (query: string): Promise<string> => fakeApiCall(`# Search Results for "${query}"...`, 1000);
 
 // --- Plans & Initiatives ---
 export const saveCustomInitiative = async (userEmail: string, name: string, pilots: string[]): Promise<void> => {

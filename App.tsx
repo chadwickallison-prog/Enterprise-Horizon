@@ -4,7 +4,6 @@ import {
   signUpUser,
   forgotPassword,
   analyzeAssessment,
-  searchPlatform,
   saveCustomInitiative,
   saveIntegrationPlan,
   getLastAssessmentReport,
@@ -19,7 +18,6 @@ import DashboardPage from './components/DashboardPage';
 import Questionnaire from './components/Questionnaire';
 import LoadingSpinner from './components/LoadingSpinner';
 import ResultsPage from './components/ResultsPage';
-import SearchResultsPage from './components/SearchResultsPage';
 import IntegrationsPage from './components/IntegrationsPage';
 import PilotPage from './components/PilotPage';
 import ReportsPage from './components/ReportsPage';
@@ -77,7 +75,8 @@ import ContactModal from './components/ContactModal';
 import FaqPage from './components/FaqPage';
 import CustomInitiativeProgramPage from './components/CustomInitiativeProgramPage';
 
-type AppState = 'auth' | 'loading' | 'dashboard' | 'assessment' | 'results' | 'search-results' | 'page';
+type AppState = 'auth' | 'loading' | 'dashboard' | 'assessment' | 'results' | 'page';
+const PUBLIC_CONTENT_PAGES = new Set(["integrations", "pilots", "custom-initiative-program", "crm", "erp", "hris", "service-now", "custom-connectors", "quarterly-report", "benchmark-report", "pilot-report", "risk-report", "cost-report", "automation-roi-report", "security-report", "sentiment-report", "careers", "solutions", "starnet-halo-vortex", "novacore-hyperion", "orbitai-novasynapse", "quantumlink-graph-nexus", "event-horizon-synoptic", "quantum-inference-engine", "temporal-dynamics-analyzer", "contextual-relevance-framework", "adaptive-learning-system", "insight-delivery-orchestrator", "blockchain", "galaxity-token", "support", "faq", "quantum-cyber-security", "quantum-communications", "pqc", "qkd", "qrng", "ai-q-threat-detection", "quantum-resilient-architecture", "chapter-1", "chapter-2", "chapter-3", "chapter-4", "chapter-5", "chapter-6", "chapter-7", "chapter-8", "chapter-9", "chapter-10"]);
 const REMEMBERED_EMAIL_KEY = 'enterprise-horizon-remembered-email';
 
 const App: React.FC = () => {
@@ -87,8 +86,6 @@ const App: React.FC = () => {
   const [authError, setAuthError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [assessmentResults, setAssessmentResults] = useState<AssessmentReport | null>(null);
-  const [searchResults, setSearchResults] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
   const [pilotsToCombine, setPilotsToCombine] = useState<string[]>([]);
   const [integrationsToCombine, setIntegrationsToCombine] = useState<string[]>([]);
   const [isTtsEnabled, setIsTtsEnabled] = useState(false);
@@ -98,7 +95,14 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const sessionUser = getSessionUser();
-    if (sessionUser) {
+    const requestedPage = new URLSearchParams(window.location.search).get('page');
+    if (requestedPage && PUBLIC_CONTENT_PAGES.has(requestedPage)) {
+      setUser(sessionUser);
+      setCurrentPage(requestedPage);
+      setAppState('page');
+      setHistory(['dashboard', requestedPage]);
+      setHistoryIndex(1);
+    } else if (sessionUser) {
       setUser(sessionUser);
       setAppState('dashboard');
       setCurrentPage('dashboard');
@@ -235,19 +239,6 @@ const App: React.FC = () => {
     }
   };
 
-  const handleSearch = async (query: string) => {
-    setAppState('loading');
-    setSearchQuery(query);
-    try {
-      const result = await searchPlatform(query);
-      setSearchResults(result);
-      setAppState('search-results');
-    } catch (error) {
-      console.error('Search failed:', error);
-      setAppState(user ? 'dashboard' : 'auth');
-      setCurrentPage('dashboard');
-    }
-  };
 
   const handleResetAssessment = () => {
     setAssessmentResults(null);
@@ -315,7 +306,6 @@ const App: React.FC = () => {
     if (appState === 'dashboard' && user) return <DashboardPage user={user} onNavigate={handleNavigate} onFetchLastReport={handleFetchLastReport} />;
     if (appState === 'assessment') return <Questionnaire onSubmit={handleAssessmentSubmit} isTtsEnabled={isTtsEnabled} setIsTtsEnabled={setIsTtsEnabled} onNavigate={handleNavigate} />;
     if (appState === 'results') return <ResultsPage results={assessmentResults} onReset={handleResetAssessment} />;
-    if (appState === 'search-results') return <SearchResultsPage results={searchResults} query={searchQuery} onReset={() => setAppState(user ? 'dashboard' : 'auth')} />;
 
     if (appState === 'page') {
       switch (currentPage) {
@@ -390,7 +380,6 @@ const App: React.FC = () => {
           user={user}
           onNavigate={handleNavigate}
           onLogout={handleLogout}
-          onSearch={handleSearch}
           onBack={handleBack}
           onForward={handleForward}
           canGoBack={historyIndex > 0}
